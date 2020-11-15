@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Welcome from './Welcome'
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
+    fetch('https://zach33.pythonanywhere.com/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
     });
   }, []);
@@ -14,18 +13,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Welcome />
         <p>The current time is {currentTime}.</p>
       </header>
     </div>
