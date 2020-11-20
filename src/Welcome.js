@@ -3,8 +3,15 @@ import React from 'react'
 export default function Home() {
     return (
         <div>
-            <h1>Spotify Tweet Analysis</h1>
-            <p>Generate playlists based on the sentiment in recent tweets and your user data.</p>
+            <h1 style={{paddingTop:"13%", 
+            paddingLeft:"10%", 
+            textAlign:"Left", 
+            fontSize:"55px"}}>
+                Spotify Tweet Analysis</h1>
+            <p style={{paddingLeft:"30%", 
+            fontSize:"35px", 
+            paddingBottom:"18%"}}> 
+            Generate playlists based on tweets🐦 and data📈.</p>
         </div>
     )
 }
