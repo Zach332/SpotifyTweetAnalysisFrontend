@@ -72,9 +72,9 @@ function App() {
                     </button>
                 </div>
                 <div className="mx-auto">
-                    <form className="py-4" onSubmit={handleSubmit}>
+                    <form className="py-4" onSubmit={handleSubmit} style={{width: "100%", padding:"20%"}}>
                         <div className="form-group row">
-    \                       <label htmlFor="content">Twitter account</label>
+                           <label htmlFor="content">Twitter account</label>
                             <input className="form-control" id="content" type="text" placeholder="nytimes" onChange={handleInputChange}></input>
                         </div>
                         <button type="submit" className="btn btn-primary">Generate playlist</button>
