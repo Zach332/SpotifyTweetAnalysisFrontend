@@ -18,39 +18,17 @@ function App() {
     
     useEffect(() => {
         const params = toParams(window.location.search.replace(/^\?/, ''))
-        parseCode(params)
-    }, [])
-
-    const parseCode = (data) => {
-        console.log("Parsing code from:")
-        console.log(data)
-        if (!data.code) {
-            return;
+        if (params.code) {
+            setStatus("authorized")
+            setCode(params.code)
         }
-        axios({
-            method: 'post',
-            url:'https://accounts.spotify.com/api/token',
-            params: {
-                client_id: "12c531c380a24222bbb136f06402c9ee",
-                client_secret: "e4db5a70348744ab936d71ee719b57bb",
-                code,
-                grant_type :'authorization_code',
-                redirect_uri: "https://zach332.github.io/TweetSoundtrack/"
-            },
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(token => {
-            console.log(token);
-        }).catch(e=> {
-            console.log(e);
-        });    
-    }
+    }, [])
 
     const search = toQuery({
         client_id: '12c531c380a24222bbb136f06402c9ee',
         response_type: 'code',
         redirect_uri: 'https://zach332.github.io/TweetSoundtrack/',
+        scope: "user-top-read"
     });
     
     const onCLick = () => {
@@ -59,13 +37,21 @@ function App() {
 
     const handleSubmit = (event) => {
         setStatus("loading")
-        fetch('https://zach33.pythonanywhere.com/songs').then(res => res.json())
-        .then(data => {
-            console.log(data)
-            setTracks(data.tracks)
+        console.log(input)
+        console.log(code)
+        axios.get('https://zach33.pythonanywhere.com/songs', {
+            params: {
+                twitterAccount: input,
+                code: code
+            }
+        })
+        .then(response => {
+            console.log(response)
+            setTracks(response.data.tracks)
         }).then(() => {
             setStatus("success")
         })
+        event.preventDefault()
     }
 
     if(status == "loading") {
@@ -87,9 +73,9 @@ function App() {
                 </div>
                 <div className="mx-auto">
                     <form className="py-4" onSubmit={handleSubmit}>
-                        <div class="form-group row">
+                        <div className="form-group row">
     \                       <label htmlFor="content">Twitter account</label>
-                            <input class="form-control" id="content" type="text" placeholder="nytimes" onChange={handleInputChange}></input>
+                            <input className="form-control" id="content" type="text" placeholder="nytimes" onChange={handleInputChange}></input>
                         </div>
                         <button type="submit" className="btn btn-primary">Generate playlist</button>
                     </form>
