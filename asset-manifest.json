@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/TweetSoundtrack/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/TweetSoundtrack/static/js/main.6182d0db.chunk.js",
-    "main.js.map": "/TweetSoundtrack/static/js/main.6182d0db.chunk.js.map",
+    "main.js": "/TweetSoundtrack/static/js/main.c72a3764.chunk.js",
+    "main.js.map": "/TweetSoundtrack/static/js/main.c72a3764.chunk.js.map",
     "runtime-main.js": "/TweetSoundtrack/static/js/runtime-main.a6c9cce6.js",
     "runtime-main.js.map": "/TweetSoundtrack/static/js/runtime-main.a6c9cce6.js.map",
-    "static/js/2.568f0457.chunk.js": "/TweetSoundtrack/static/js/2.568f0457.chunk.js",
-    "static/js/2.568f0457.chunk.js.map": "/TweetSoundtrack/static/js/2.568f0457.chunk.js.map",
+    "static/js/2.35fa7d3f.chunk.js": "/TweetSoundtrack/static/js/2.35fa7d3f.chunk.js",
+    "static/js/2.35fa7d3f.chunk.js.map": "/TweetSoundtrack/static/js/2.35fa7d3f.chunk.js.map",
     "static/js/3.4e666961.chunk.js": "/TweetSoundtrack/static/js/3.4e666961.chunk.js",
     "static/js/3.4e666961.chunk.js.map": "/TweetSoundtrack/static/js/3.4e666961.chunk.js.map",
     "index.html": "/TweetSoundtrack/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/TweetSoundtrack/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.568f0457.chunk.js.LICENSE.txt": "/TweetSoundtrack/static/js/2.568f0457.chunk.js.LICENSE.txt"
+    "static/js/2.35fa7d3f.chunk.js.LICENSE.txt": "/TweetSoundtrack/static/js/2.35fa7d3f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a6c9cce6.js",
-    "static/js/2.568f0457.chunk.js",
+    "static/js/2.35fa7d3f.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.6182d0db.chunk.js"
+    "static/js/main.c72a3764.chunk.js"
   ]
 }
