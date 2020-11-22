@@ -27,8 +27,8 @@ function App() {
     const search = toQuery({
         client_id: '12c531c380a24222bbb136f06402c9ee',
         response_type: 'code',
+        scope: "user-top-read",
         redirect_uri: 'https://zach332.github.io/TweetSoundtrack/',
-        scope: "user-top-read"
     });
     
     const onCLick = () => {
