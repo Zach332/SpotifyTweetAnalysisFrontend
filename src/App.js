@@ -63,7 +63,7 @@ function App() {
     if(status == 'error') {
         return (
             <div>
-                <p>The server has encountered an error. Your Spotify login may have expired. We recommend that you <a href="/">start over.</a></p>
+                <p>The server has encountered an error. Your Spotify login may have expired. We recommend that you <a href="/TweetSoundtrack">start over.</a></p>
             </div>
         )
     }
