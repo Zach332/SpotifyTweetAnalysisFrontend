@@ -10,7 +10,7 @@ export default function Home() {
                 Spotify Tweet Analysis</h1>
             <p style={{paddingLeft:"30%", 
             fontSize:"35px", 
-            paddingBottom:"18%"}}> 
+            paddingBottom:"12%"}}> 
             Generate playlists based on tweets🐦 and data📈.</p>
         </div>
     )
