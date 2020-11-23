@@ -44,19 +44,28 @@ function App() {
                 twitterAccount: input,
                 code: code
             }
-        })
-        .then(response => {
+        }).then(response => {
             setSentimentColor(response.data.sentimentColor)
             setUser(response.data.spotify.user)
             setTracks(response.data.spotify.recommendations.tracks)
         }).then(() => {
             setStatus("success")
+        }).catch(() => {
+            setStatus("error")
         })
         event.preventDefault()
     }
 
     if(status == "loading") {
         return <Spinner />
+    }
+
+    if(status == 'error') {
+        return (
+            <div>
+                <p>The server has encountered an error. Your Spotify login may have expired. We recommend that you <a href="/">start over.</a></p>
+            </div>
+        )
     }
 
     if(status == "notAuthorized") {
