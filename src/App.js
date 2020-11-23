@@ -27,10 +27,10 @@ function App() {
     }, [])
 
     const search = toQuery({
-        client_id: '12c531c380a24222bbb136f06402c9ee',
+        client_id: '2d860b1bb2be4ca296384d7cef9b0301',
         response_type: 'code',
         scope: "user-top-read",
-        redirect_uri: 'https://zach332.github.io/TweetSoundtrack',
+        redirect_uri: 'https://zach332.github.io/TweetSoundtrack/',
     });
     
     const onCLick = () => {
