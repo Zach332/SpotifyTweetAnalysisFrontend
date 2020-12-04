@@ -6,16 +6,26 @@ import axios from 'axios'
 import { toQuery, toParams } from './Routing'
 
 function App() {
+    var date = new Date();
     const [tracks, setTracks] = useState([])
     const [input, setInput] = useState("nytimes")
     const [code, setCode] = useState("")
     const [user, setUser] = useState("Spotify user")
+    const [userId, setUserId] = useState('')
+    const [token, setToken] = useState('')
+    const [playlistTitle, setPlaylistTitle] = useState(date.toLocaleDateString()+" vibes")
+    const [playlistStatus, setPlaylistStatus] = useState('none')
     const [status, setStatus] = useState("notAuthorized")
     const [sentimentColor, setSentimentColor] = useState([{background: "beige", text: "black", description: ""}])
 
     const handleInputChange = (event) => {
         const target = event.target;
         setInput(target.value);
+    }
+
+    const handlePlaylistChange = (event) => {
+        const target = event.target;
+        setPlaylistTitle(target.value);
     }
     
     useEffect(() => {
@@ -29,7 +39,7 @@ function App() {
     const search = toQuery({
         client_id: '2d860b1bb2be4ca296384d7cef9b0301',
         response_type: 'code',
-        scope: "user-top-read",
+        scope: "user-top-read,playlist-modify-public",
         redirect_uri: 'https://zach332.github.io/TweetSoundtrack/',
     });
     
@@ -47,11 +57,44 @@ function App() {
         }).then(response => {
             setSentimentColor(response.data.sentimentColor)
             setUser(response.data.spotify.user)
+            setUserId(response.data.spotify.userId)
+            setToken(response.data.spotify.token)
             setTracks(response.data.spotify.recommendations.tracks)
         }).then(() => {
             setStatus("success")
         }).catch(() => {
             setStatus("error")
+        })
+        event.preventDefault()
+    }
+
+    const handlePlaylistSubmit = (event) => {
+        axios.post('https://api.spotify.com/v1/users/'+userId+'/playlists', {
+            name: playlistTitle
+        },
+        {
+            headers: {
+                'Authorization': 'Bearer '+token,
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            axios.post('https://api.spotify.com/v1/playlists/'+response.data.id+'/tracks', {
+                uris: tracks.map(track => track.uri)
+            },
+            {
+                headers: {
+                    'Authorization': 'Bearer '+token,
+                    'Content-Type': 'application/json'
+                }
+            }).then(
+                setPlaylistStatus('success')
+            ).catch((err) =>{
+                console.log(err)
+                setPlaylistStatus('failure')
+            })
+        }).catch((err) =>{
+            console.log(err)
+            setPlaylistStatus('failure')
         })
         event.preventDefault()
     }
@@ -110,6 +153,23 @@ function App() {
         )
     }
 
+    let form
+    if(playlistStatus === 'failure') {
+        form = <p>Sorry; an error was encountered</p>
+    } else if (playlistStatus === 'success') {
+        form = <p>The playlist was saved to your Spotify account!</p>
+    } else {
+        form = (
+            <form class="form-inline" onSubmit={handlePlaylistSubmit}>
+                <label for="title" class="col-sm-2 col-form-label">Playlist title</label>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="title" onChange={handlePlaylistChange} placeholder={date.toLocaleDateString()+" vibes"}/>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Add playlist to Spotify</button>
+            </form>
+        )
+    }
+
     return (
         <div className="App">
             <div className="welcome" style={{fontSize:"50px", fontWeight:"bold"}}>
@@ -128,12 +188,14 @@ function App() {
             <div className="welcome" style={{fontSize:"25px"}}>We've curated the below playlist for you based on the Twitter username you provided and your listening habits.</div>
             <br></br>
             <div className="container">
-            <hr/>
+                <hr/>
                 <div className="row py-4">
                     <h2 className="col col-auto">Sentiment color:</h2>
                     <div class="col col-auto rounded-0 card" style={{background:sentimentColor.background}}></div>
                     <p className="col">{sentimentColor.description}</p>
                 </div>
+                <hr/>
+                {form}
                 <div className="row" style={{paddingBottom: "50%"}}>
                     {tracks.map(track => <Track key={track.id} track={track} sentimentColor={sentimentColor} />)}
                 </div>
